@@ -16,4 +16,38 @@ export class StorageService {
     localStorage.removeItem(TOKEN);
     localStorage.setItem(TOKEN, token);
   }
+
+  static isAdminLogin(): boolean {
+    if(this.getToken() == null) {
+      return false;
+    }
+    const role:string = this.getUserRole()
+    return role === "ADMIN";
+  }
+
+  static isStudentLogin():boolean {
+    if(this.getToken() == null) {
+      return false;
+    }
+    const role:string = this.getUserRole()
+    return role === "STUDENT";
+  }
+
+  private static getToken() {
+    return localStorage.getItem(TOKEN)
+  }
+
+  private static getUserRole() {
+    const user = this.getUser();
+    if(user == null) {
+      return ''
+    }
+    return user.role;
+  }
+
+  private static getUser():any{
+    // @ts-ignore
+    const parse = JSON.parse(localStorage.getItem(USER));
+    return parse;
+  }
 }
