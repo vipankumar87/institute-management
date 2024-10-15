@@ -16,6 +16,8 @@ import {NgIf} from "@angular/common";
 export class AppComponent {
   isAdminLoggedIn:boolean = false;
   isStudentLoggedIn:boolean = false;
+  isLoaded = false; // Track loading state
+
   title = 'Frontend-Student-Management';
   constructor(private router: Router) {
   }
@@ -33,10 +35,14 @@ export class AppComponent {
   private updateLoggedInStatus(): void{
     this.isAdminLoggedIn = StorageService.isAdminLogin();
     this.isStudentLoggedIn = StorageService.isStudentLogin();
+    this.isLoaded = true;
   }
   logOut(){
     StorageService.logOut().subscribe(()=>{
-      this.router.navigateByUrl("/login");
+      this.router.navigateByUrl("/login", {skipLocationChange: false})
+        .then(r =>{
+          console.log("logOut");
+      } );
     })
   }
 }

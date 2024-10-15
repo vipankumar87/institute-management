@@ -1,20 +1,31 @@
-<div *ngIf="!isAdminLoggedIn">
-  <mat-toolbar color="rose" class="navbar">
-    <span class="navbar-brand">Institute Management</span>
-    <span class="spacer"></span>
-    <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
-  </mat-toolbar>
-</div>
-<div  *ngIf="isAdminLoggedIn">
-  <mat-toolbar color="rose" class="navbar">
-    <span class="navbar-brand">Institute Management</span>
-    <span class="spacer"></span>
-    <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
-    <button mat-button (click)="logOut()" routerLinkActive="active">Logout</button>
-  </mat-toolbar>
-</div>
-<div class="container-fluid">
-  <div class="row">
-    <router-outlet></router-outlet>
+<ng-container *ngIf="isLoaded">
+  <div *ngIf="!isAdminLoggedIn && !isStudentLoggedIn">
+    <mat-toolbar color="rose" class="navbar">
+      <span class="navbar-brand">Institute Management</span>
+      <span class="spacer"></span>
+      <button mat-button routerLink="/login" routerLinkActive="active">Login</button>
+    </mat-toolbar>
   </div>
-</div>
+  <div  *ngIf="isAdminLoggedIn">
+    <mat-toolbar color="rose" class="navbar">
+      <span class="navbar-brand">Institute Management [Admin Portal]</span>
+      <span class="spacer"></span>
+      <button mat-button routerLink="/admin/dashboard" routerLinkActive="active">Dashboard</button>
+      <button mat-button (click)="logOut()" routerLinkActive="active">Logout</button>
+    </mat-toolbar>
+  </div>
+  <div  *ngIf="isStudentLoggedIn">
+    <mat-toolbar color="rose" class="navbar">
+      <span class="navbar-brand">Institute Management [Student Portal]</span>
+      <span class="spacer"></span>
+      <button mat-button routerLink="/students/dashboard" routerLinkActive="active">Dashboard</button>
+      <button mat-button (click)="logOut()" routerLinkActive="active">Logout</button>
+    </mat-toolbar>
+  </div>
+  <div class="container-fluid">
+    <div class="row">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+
+</ng-container>

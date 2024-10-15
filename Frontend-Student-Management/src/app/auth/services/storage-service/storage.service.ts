@@ -59,4 +59,8 @@ export class StorageService {
       subscriber.complete();
     });
   }
+
+  static hasToken() {
+    return window.localStorage.getItem(TOKEN) != undefined
+  }
 }
