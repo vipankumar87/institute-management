@@ -4,6 +4,7 @@ import {DashboardComponent} from "./admin-components/dashboard/dashboard.compone
 
 const routes: Routes = [
   { path: "dashboard", component: DashboardComponent },
+  { path: "", redirectTo: "dashboard", pathMatch: "full" },
 ];
 
 @NgModule({

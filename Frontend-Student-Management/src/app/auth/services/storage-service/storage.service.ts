@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Observable, Subscriber} from "rxjs";
 
 const USER = 'c_user';
 const TOKEN = "caji_token"
@@ -9,12 +10,12 @@ export class StorageService {
 
   constructor() { }
   saveUser(user: any) {
-    localStorage.removeItem(USER);
-    localStorage.setItem(USER, JSON.stringify(user));
+    window.localStorage.removeItem(USER);
+    window.localStorage.setItem(USER, JSON.stringify(user));
   }
   saveToken(token: any){
-    localStorage.removeItem(TOKEN);
-    localStorage.setItem(TOKEN, token);
+    window.localStorage.removeItem(TOKEN);
+    window.localStorage.setItem(TOKEN, token);
   }
 
   static isAdminLogin(): boolean {
@@ -34,7 +35,7 @@ export class StorageService {
   }
 
   private static getToken() {
-    return localStorage.getItem(TOKEN)
+    return window.localStorage.getItem(TOKEN)
   }
 
   private static getUserRole() {
@@ -47,7 +48,15 @@ export class StorageService {
 
   private static getUser():any{
     // @ts-ignore
-    const parse = JSON.parse(localStorage.getItem(USER));
+    const parse = JSON.parse(window.localStorage.getItem(USER));
     return parse;
+  }
+  public static logOut(){
+    // @ts-ignore
+    return new Observable<boolean>( (subscriber): boolean => {
+      window.localStorage.removeItem(USER);
+      subscriber.next(true);
+      subscriber.complete();
+    });
   }
 }
