@@ -55,6 +55,7 @@ export class StorageService {
     // @ts-ignore
     return new Observable<boolean>( (subscriber): boolean => {
       window.localStorage.removeItem(USER);
+      window.localStorage.removeItem(TOKEN);
       subscriber.next(true);
       subscriber.complete();
     });

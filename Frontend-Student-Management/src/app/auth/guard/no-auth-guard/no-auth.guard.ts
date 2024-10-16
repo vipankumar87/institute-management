@@ -15,7 +15,7 @@ export const noAuthGuard: CanActivateFn = (next:ActivatedRouteSnapshot, state:Ro
   }
   if( StorageService.hasToken() && StorageService.isAdminLogin()){
     router.navigate(['/admin/dashboard']);
-    return false
+    return false;
   }
   return true;
 };

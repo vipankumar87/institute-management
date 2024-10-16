@@ -23,11 +23,9 @@ export class AppComponent {
   }
   ngOnInit(){
     this.updateLoggedInStatus();
-    if(this.isAdminLoggedIn){
-      this.router.navigate(['admin/']);
-    }
+
     this.router.events.subscribe(event=>{
-      if(event instanceof NavigationEnd){
+      if( event instanceof NavigationEnd ){
         this.updateLoggedInStatus();
       }
     })
@@ -39,7 +37,7 @@ export class AppComponent {
   }
   logOut(){
     StorageService.logOut().subscribe(()=>{
-      this.router.navigateByUrl("/login", {skipLocationChange: false})
+      this.router.navigateByUrl("/login", { skipLocationChange: false })
         .then(r =>{
           console.log("logOut");
       } );
